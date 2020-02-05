@@ -67,32 +67,77 @@ public class BoggleActivity extends AppCompatActivity {
         try{
             reader = new BufferedReader(
                     new InputStreamReader(getAssets().open("positive-words.txt")));
-            int flag=0,row=0;
+            int flag=0,counter=0;
             String mWord;
             while ((mWord = reader.readLine()) != null) {
                 trie.insert(mWord);
                 flag=rand.nextInt(5);
                 //System.out.println(flag);
                 if(flag==rand.nextInt(5)){
-                    int column=0,pos=0,check=1;
+                    int row=rand.nextInt(n-1);
+                    int column=rand.nextInt(n-1);
                     while(true){
-                        if(mWord.length()>=n){
-                            check=0;
-                            break;
-                        }
-                        boggle[row][column]=mWord.charAt(pos);
-                        column++;
-                        pos++;
-                        if(pos==mWord.length()) break;
+                        int sign=rand.nextInt(5);
+                        switch(sign){
 
+                            case 0:
+                                if(row>0)
+                                    row--;
+                                else if(row<n-1)
+                                    row++;
+                                break;
+                            case 1:
+                                if(column>0)
+                                    column--;
+                                else if(column<n-1)
+                                    column++;
+                                break;
+                            case 2:
+                                if(row>=0 && row <n-1){
+                                    if(column>=0 && column<n-1){
+                                        row++;
+                                        column++;
+                                    }
+                                    else
+                                        row++;
+                                }
+                                break;
+                            case 3:
+                                if(row>0 && row <=n-1){
+                                    if(column>0 && column<=n-1){
+                                        row--;
+                                        column--;
+                                    }
+                                    else
+                                        row--;
+                                }
+                                break;
+                            case 4:
+                                if(row>=0 && row <n-1){
+                                    if(column>0 && column<=n-1){
+                                        row++;
+                                        column--;
+                                    }
+                                    else
+                                        row++;
+                                }
+                                break;
+                            case 5:
+                                if(row>0 && row <=n-1){
+                                    if(column>=0 && column<n-1){
+                                        row--;
+                                        column++;
+                                    }
+                                    else
+                                        row--;
+                                }
+                                break;
+                        }
+                        boggle[row][column]=mWord.charAt(counter);
+                        counter++;
+                        if(counter==mWord.length())break;
                     }
-                    if(check==1){
-                        row++;
-                        column=0;
-                    }
-                    if(row==n){
-                        row=0;
-                    }
+                    counter=0;
                 }
                 mWord="";
             }
