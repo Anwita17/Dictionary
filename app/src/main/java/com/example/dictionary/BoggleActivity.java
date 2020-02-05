@@ -71,9 +71,9 @@ public class BoggleActivity extends AppCompatActivity {
             String mWord;
             while ((mWord = reader.readLine()) != null) {
                 trie.insert(mWord);
-                flag=rand.nextInt(26);
+                flag=rand.nextInt(5);
                 //System.out.println(flag);
-                if(flag==rand.nextInt(26)){
+                if(flag==rand.nextInt(5)){
                     int column=0,pos=0,check=1;
                     while(true){
                         if(mWord.length()>=n){
@@ -89,6 +89,9 @@ public class BoggleActivity extends AppCompatActivity {
                     if(check==1){
                         row++;
                         column=0;
+                    }
+                    if(row==n){
+                        row=0;
                     }
                 }
                 mWord="";
