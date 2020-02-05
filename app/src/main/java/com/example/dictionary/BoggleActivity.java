@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.Random;
 
 public class BoggleActivity extends AppCompatActivity {
 
@@ -35,12 +36,18 @@ public class BoggleActivity extends AppCompatActivity {
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
                 boggle[i][j]=(char)(Math.random()*26+97);
+                //matrix.append(boggle[i][j]+"  ");
+            }
+            //matrix.append("\n");
+        }
+        load(boggle,n);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                //boggle[i][j]=(char)(Math.random()*26+97);
                 matrix.append(boggle[i][j]+"  ");
             }
             matrix.append("\n");
         }
-        load();
-
         Boggle boggle1=new Boggle();
         results=boggle1.findWords(boggle,trie);
 
@@ -51,18 +58,43 @@ public class BoggleActivity extends AppCompatActivity {
 
     }
 
-    void load(){
+    void load(char boggle[][],int n){
 
         BufferedReader reader ;
+        Random rand = new Random();
+
+
         try{
             reader = new BufferedReader(
                     new InputStreamReader(getAssets().open("positive-words.txt")));
-
+            int flag=0,row=0;
             String mWord;
             while ((mWord = reader.readLine()) != null) {
                 trie.insert(mWord);
-                //Toast.makeText(this,mLine,Toast.LENGTH_SHORT).show();
+                flag=rand.nextInt(26);
+                //System.out.println(flag);
+                if(flag==rand.nextInt(26)){
+                    int column=0,pos=0,check=1;
+                    while(true){
+                        if(mWord.length()>=n){
+                            check=0;
+                            break;
+                        }
+                        boggle[row][column]=mWord.charAt(pos);
+                        column++;
+                        pos++;
+                        if(pos==mWord.length()) break;
+
+                    }
+                    if(check==1){
+                        row++;
+                        column=0;
+                    }
+                }
+                mWord="";
             }
+                //Toast.makeText(this,mLine,Toast.LENGTH_SHORT).show();
+
         }catch (IOException e) {
             Toast.makeText(this,"HelloException",Toast.LENGTH_SHORT).show();
             e.printStackTrace();
