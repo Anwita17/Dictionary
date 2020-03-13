@@ -56,20 +56,30 @@ public class CallbackTask extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        String def;
+        String def="";
         try{
-            JSONObject jsonObject = new JSONObject(result).
-                    getJSONArray("results").getJSONObject(0).
+            JSONObject jsonObject=new JSONObject(result);
+            JSONArray senses = jsonObject.getJSONArray("results").getJSONObject(0).
                     getJSONArray("lexicalEntries").getJSONObject(0).
                     getJSONArray("entries").getJSONObject(0).
-                    getJSONArray("senses").getJSONObject(0);
-            JSONArray jsonArray=jsonObject.getJSONArray("definitions");
-            def=jsonArray.getString(0);
+                    getJSONArray("senses");
+            String domain = jsonObject.getJSONArray("results").getJSONObject(0).
+                    getJSONArray("lexicalEntries").getJSONObject(0).
+                    getJSONObject("lexicalCategory").get("text").toString();
+            String[] definitions=new String[senses.length()];
+            for(int i=0;i<senses.length();i++) {
+                JSONArray definition = senses.getJSONObject(i).getJSONArray("definitions");
+                definitions[i]=definition.getString(0);
+            }
+            for(int i=0;i<definitions.length;i++){
+                def+=definitions[i]+"\n\n";
+            }
+            def+=domain;
             Toast.makeText(context,def,Toast.LENGTH_SHORT).show();
 
         }catch (JSONException e){
             e.printStackTrace();
         }
-        Log.v("Result",result);
+        //Log.v("Result",domain);
     }
 }
