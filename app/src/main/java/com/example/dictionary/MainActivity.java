@@ -13,14 +13,11 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         final String word_id = word.toLowerCase();
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
-    void load(){
+    void loadData(ArrayList<String> temporary){
         BufferedReader reader ;
         try{
             reader = new BufferedReader(
@@ -41,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
             int flag=0,counter=0;
             String mWord;
             while ((mWord = reader.readLine()) != null) {
-                trie.insert(mWord);
+                //trie.insert(mWord);
+                temporary.add(mWord);
                 mWord="";
             }
             //Toast.makeText(this,mLine,Toast.LENGTH_SHORT).show();
@@ -51,19 +49,16 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ListView listView=findViewById(R.id.my_list);
-        load();
-        String temp=trie.retrieve();
-       // String temp1="abl";
-        final List<String> mylist=trie.suffix(temp);
-        //Toast.makeText(MainActivity.this,temp.toString(),Toast.LENGTH_SHORT).show();
-       // mylist.add("Erase");
+        ArrayList<String> temporary=new ArrayList<>();
+        loadData(temporary);
+        final List<String> mylist=temporary;
         arrayAdapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,mylist);
         listView.setAdapter(arrayAdapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,14 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 //Toast.makeText(MainActivity.this,mylist.get(i),Toast.LENGTH_SHORT).show();
             }
         });
-        //Log.v("Result",dictionaryEntries());
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_menu,menu);
+
         MenuItem menuItem=menu.findItem(R.id.search_icon);
         SearchView searchView=(SearchView)menuItem.getActionView();
-        searchView.setQueryHint("Search Words!");
+
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
