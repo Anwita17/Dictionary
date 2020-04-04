@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Dictionary</string>
+    <string name="parts_of_speech">parts of speech</string>
+    <string name="word">Word</string>
 </resources>

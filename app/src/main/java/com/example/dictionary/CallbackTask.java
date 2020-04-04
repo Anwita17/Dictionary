@@ -5,10 +5,14 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -18,9 +22,17 @@ import org.json.JSONObject;
 public class CallbackTask extends AsyncTask<String, Integer, String> {
 
     Context context;
+    ListView listView;
+    TextView textView;
+    ProgressDialog mProgressDialog;
 
-    CallbackTask(Context context){
+    CallbackTask(Context context,TextView textView,ListView listView){
         this.context=context;
+        this.textView=textView;
+        this.listView=listView;
+        mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
     }
 
     @Override
@@ -71,15 +83,20 @@ public class CallbackTask extends AsyncTask<String, Integer, String> {
                 JSONArray definition = senses.getJSONObject(i).getJSONArray("definitions");
                 definitions[i]=definition.getString(0);
             }
+
             for(int i=0;i<definitions.length;i++){
                 def+=definitions[i]+"\n\n";
             }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context,R.layout.list_item_word,definitions);
+            listView.setAdapter(arrayAdapter);
+            textView.setText(domain);
             def+=domain;
-            Toast.makeText(context,def,Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context,def,Toast.LENGTH_SHORT).show();
 
         }catch (JSONException e){
             e.printStackTrace();
         }
+        mProgressDialog.dismiss();
         //Log.v("Result",domain);
     }
 }

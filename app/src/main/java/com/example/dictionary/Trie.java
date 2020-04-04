@@ -1,4 +1,5 @@
 package com.example.dictionary;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.*;
@@ -92,25 +93,26 @@ public class Trie {
         }
         return ret;
     }
-    ArrayList<String> result = new ArrayList<>();
-    void fillup(TrieNode q,String s){
+    //ArrayList<String> result = new ArrayList<>();
+    void fillup(TrieNode q,String s,ArrayList<String > result){
+
         int i=0;
         for(i=0;i<26;i++){
             if(q.children[i]!=null){
-                //System.out.println(s);
+                Log.d("Trie",s);
                 String letter=Character.toString((char)(i+97));
                 //System.out.println(letter);
                 //result.push(s);
                 s=s+letter;
                 if(q.children[i].isLeaf)
                     result.add(s);
-                fillup(q.children[i],s);
-
+                fillup(q.children[i],s,result);
             }
         }
 
     }
     public ArrayList<String> suffix(String s) {
+        ArrayList<String> result = new ArrayList<>();
         TrieNode p = root,q=root;
         int index=0,flag=0;
         for(int i=0; i<s.length(); i++){
@@ -127,9 +129,10 @@ public class Trie {
         if(p.isLeaf)
             result.add(s);
         String tempresult=s;
+        //Log.d("Trie",s);
         //System.out.println(tempresult);
-        if(flag==0 && s.length()>=4)
-            fillup(p,tempresult);
+        if(flag==0)
+            fillup(this.root,tempresult,result);
         return result;
     }
 }
