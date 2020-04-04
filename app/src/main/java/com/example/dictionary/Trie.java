@@ -94,25 +94,31 @@ public class Trie {
         return ret;
     }
     //ArrayList<String> result = new ArrayList<>();
-    void fillup(TrieNode q,String s,ArrayList<String > result){
-
-        int i=0;
+    void fillup(TrieNode q,String s,String fixed_string,String letter,Set<String> result){
+        int i;
         for(i=0;i<26;i++){
             if(q.children[i]!=null){
-                Log.d("Trie",s);
-                String letter=Character.toString((char)(i+97));
+                //System.out.println(s);
+                letter=Character.toString((char)(i+97));
                 //System.out.println(letter);
                 //result.push(s);
                 s=s+letter;
-                if(q.children[i].isLeaf)
+                if(q.children[i].isLeaf){
                     result.add(s);
-                fillup(q.children[i],s,result);
+                    //System.out.println(s);
+                }
+                q=q.children[i];
+                fillup(q,s,fixed_string,letter,result);
             }
         }
-
+        if(i==26){
+            s=fixed_string;
+            letter="";
+            //System.out.println("Here : "+s);
+        }
     }
-    public ArrayList<String> suffix(String s) {
-        ArrayList<String> result = new ArrayList<>();
+    public Set<String> suffix(String s) {
+        Set<String> result = new HashSet<String>();
         TrieNode p = root,q=root;
         int index=0,flag=0;
         for(int i=0; i<s.length(); i++){
@@ -122,6 +128,7 @@ public class Trie {
                 p = p.children[index];
             }
             else{
+                System.out.println("Not present");
                 flag=1;
                 break;
             }
@@ -129,10 +136,25 @@ public class Trie {
         if(p.isLeaf)
             result.add(s);
         String tempresult=s;
-        //Log.d("Trie",s);
         //System.out.println(tempresult);
-        if(flag==0)
-            fillup(this.root,tempresult,result);
+        if(flag==0 && s.length()>=1){
+            for(int i=0;i<26;i++){
+                while(p.children[i]==null){
+                    i++;
+                    if(i==26){
+                        flag=1;
+                        break;
+                    }
+                }
+                if(flag==1)
+                    break;
+                String letter=Character.toString((char)(i+97));
+                //System.out.println(letter);
+                tempresult+=letter;
+                fillup(p.children[i],tempresult,s,letter,result);
+                tempresult=s;
+            }
+        }
         return result;
     }
 }

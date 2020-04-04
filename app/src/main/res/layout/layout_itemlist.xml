@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="1dp">
+<androidx.cardview.widget.CardView
+    android:layout_width="120dp"
+    android:layout_height="150dp"
+    app:cardCornerRadius="2dp"
+    app:cardMaxElevation="4dp"
+    app:cardElevation="1dp"
+    android:id="@+id/cardview"
+    android:layout_centerInParent="true"
+    app:cardBackgroundColor="@color/card">
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/cardtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/cardcontent"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="&quot;apple&quot;"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/cardcontent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
+            android:autoSizeTextType="uniform"
+            android:padding="2dp"
+            android:text="the round fruit of a tree of the rose family"
+            android:textColor="#FFFFFF"
+            android:textSize="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="0dp"
+            android:background="#0d0866"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:text="EXPLORE"
+                android:textColor="#FFFFFF"
+                android:textSize="10dp"
+                android:padding="4dp"/>
+            <TextView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="50dp"
+                android:drawableRight="@drawable/ic_question"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+</RelativeLayout>

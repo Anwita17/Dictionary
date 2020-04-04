@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Set;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -98,19 +99,12 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
                 arrayList.clear();
-                ArrayList<String> temparrayList=trie.suffix(s);
-                for(int i=0;i<temparrayList.size();i++)
-                    arrayList.add(temparrayList.get(i));
-                Log.d(SearchActivity.class.getName(),temparrayList.toString());
-                Log.d(SearchActivity.class.getName(),""+trie.search(temparrayList.get(2)));
+                Set<String> setSuggestion=trie.suffix(s);
+                for(String word : setSuggestion){
+                    arrayList.add(word);
+                    Log.d(SearchActivity.class.getName(),word);
+                }
                 arrayAdapter.notifyDataSetChanged();
-//                if(TextUtils.isEmpty(s)){
-//////                    listView.setVisibility(View.GONE);
-//////                }
-////                else {
-////                    listView.setVisibility(View.VISIBLE);
-////                }
-//                return true;
                 return true;
             }
         });
