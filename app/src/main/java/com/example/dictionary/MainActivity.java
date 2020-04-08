@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         word.add("apple");
         meaning.add("Tap to know the\n meaning of this");
-
-
         initRecyclerView();
     }
     private void initRecyclerView(){

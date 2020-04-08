@@ -54,7 +54,7 @@ public class DisplayActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(DisplayActivity.this,word, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DisplayActivity.this,word, Toast.LENGTH_SHORT).show();
                 try {
                     FileOutputStream fout=openFileOutput("Favourite-Words.txt",MODE_APPEND);
                     String new_word=word+"\n";
