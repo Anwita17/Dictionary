@@ -66,10 +66,7 @@ public class Trie {
     String retrieve(){
         Random rand = new Random();
         TrieNode temp=root,p=root;
-        int row=rand.nextInt
-                (5);
-        int col=rand.nextInt(5);
-        int index=rand.nextInt(25),i;
+        int index=rand.nextInt(25),i=0;
         char s;
         String ret="";
         while(true){

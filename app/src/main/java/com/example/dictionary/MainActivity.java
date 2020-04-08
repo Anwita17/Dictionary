@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -57,29 +58,30 @@ public class MainActivity extends AppCompatActivity {
 
     //get words through API
     public void getWordAndMeaning(){
+        //Toast.makeText(this,, Toast.LENGTH_SHORT).show();
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
         word.add("apple");
-        meaning.add("the round fruit of a tree of the rose family");
+        meaning.add("Tap to know the\n meaning of this");
 
 
         initRecyclerView();

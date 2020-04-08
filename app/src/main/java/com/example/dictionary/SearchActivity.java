@@ -43,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         arrayList=new ArrayList<>();
         marrayList=new ArrayList<>();
         loadData(marrayList);
+        //Toast.makeText(this,trie.retrieve(), Toast.LENGTH_SHORT).show();
         arrayAdapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,arrayList);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
