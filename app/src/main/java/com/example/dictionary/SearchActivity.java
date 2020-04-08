@@ -28,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     ListView listView;
     private String dictionaryEntries(String Word) {
         final String language = "en-gb";
-        final String word = Word;
+        final String word = Word.toLowerCase();
         final String fields = "definitions";
         final String strictMatch = "false";
         final String word_id = word.toLowerCase();
@@ -66,6 +66,7 @@ public class SearchActivity extends AppCompatActivity {
             int flag=0,counter=0;
             String mWord;
             while ((mWord = reader.readLine()) != null) {
+                mWord=mWord.toLowerCase();
                 trie.insert(mWord);
                 temporary.add(mWord);
             }
@@ -99,10 +100,10 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String s) {
                 arrayList.clear();
-                Set<String> setSuggestion=trie.suffix(s);
+                Set<String> setSuggestion=trie.suffix(s.toLowerCase());
                 for(String word : setSuggestion){
-                    arrayList.add(word);
-                    Log.d(SearchActivity.class.getName(),word);
+                    arrayList.add(word.toLowerCase());
+                    Log.d(SearchActivity.class.getName(),word.toLowerCase());
                 }
                 arrayAdapter.notifyDataSetChanged();
                 return true;

@@ -151,6 +151,8 @@ public class Trie {
                 String letter=Character.toString((char)(i+97));
                 //System.out.println(letter);
                 tempresult+=letter;
+                if((p.children[i]).isLeaf)
+                    result.add(tempresult);
                 fillup(p.children[i],tempresult,s,letter,result);
                 tempresult=s;
             }
