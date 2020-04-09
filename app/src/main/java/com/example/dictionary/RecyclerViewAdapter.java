@@ -41,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardcontent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Clicked" + word.get(position), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(context, "Clicked" + word.get(position), Toast.LENGTH_SHORT).show();
                 /*Intent i1=new Intent(card,DisplayMeaning.class);
                 i1.putExtra("word",word.get(position));
                 i1.putExtra("meaning",meaning.get(position));

@@ -11,7 +11,7 @@
 <!--    <com.like.LikeButton-->
 <!--        app:icon_type="heart"-->
 <!--        app:icon_size="25dp"-->
-<!--        android:id="@+id/star_button"-->
+<!--        android:id="@+id/heart_button"-->
 <!--        android:layout_width="30dp"-->
 <!--        android:layout_height="30dp"-->
 <!--        android:layout_alignParentRight="true"-->

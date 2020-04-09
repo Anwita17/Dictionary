@@ -59,29 +59,21 @@ public class MainActivity extends AppCompatActivity {
     //get words through API
     public void getWordAndMeaning(){
         //Toast.makeText(this,, Toast.LENGTH_SHORT).show();
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
+        word.add("Amiable");
+        meaning.add("diffusing warmth and friendliness");
 
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
+        word.add("Courageous");
+        meaning.add("able to face and deal with danger or fear without flinching\n");
 
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
+        word.add("Empathetic");
+        meaning.add("showing ready comprehension of others' states\n");
 
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
+        word.add("Generous");
+        meaning.add("willing to give and share unstintingly\n");
 
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
+        word.add("Intuitive");
+        meaning.add("obtained through instinctive knowledge");
 
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
-
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
-
-        word.add("apple");
-        meaning.add("Tap to know the\n meaning of this");
         initRecyclerView();
     }
     private void initRecyclerView(){
