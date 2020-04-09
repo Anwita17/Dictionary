@@ -3,6 +3,7 @@ package com.example.dictionary;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -50,11 +51,12 @@ public class DisplayActivity extends AppCompatActivity {
 
     public void check_favourite(final String word){
         final int i = 0;
-        ImageButton button1 =(ImageButton)findViewById(R.id.imageButton);
+        final ImageButton button1 =(ImageButton)findViewById(R.id.imageButton);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(DisplayActivity.this,word, Toast.LENGTH_SHORT).show();
+                button1.setColorFilter(Color.parseColor("#FF0000"));
                 try {
                     FileOutputStream fout=openFileOutput("Favourite-Words.txt",MODE_APPEND);
                     String new_word=word+"\n";
