@@ -3,6 +3,7 @@ package com.example.dictionary;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -156,12 +157,14 @@ public class DisplayActivity extends AppCompatActivity {
         final String strictMatch = "false";
         final String word_id = word.toLowerCase();
         //Shared Preferences
-        mPreferences= this.getSharedPreferences("shared preferences",MODE_PRIVATE);
+        mPreferences= getSharedPreferences("shared preferences",Context.MODE_PRIVATE);
+        int start=mPreferences.getInt("start",-1);
+        start=(start+1)%10;
+        String key = "key"+start;
+        //Log.i("start",start+"");
         meditor=mPreferences.edit();
-        gson=new Gson();
-        shared.add(word);
-        String json=gson.toJson(shared);
-        meditor.putString("key",json);
+        meditor.putString(key,word);
+        meditor.putInt("start",start);
         meditor.commit();
 
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;

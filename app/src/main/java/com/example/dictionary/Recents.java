@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,13 +28,25 @@ public class Recents extends AppCompatActivity {
         setContentView(R.layout.activity_recents);
         //Shared Preferences
         SharedPreferences mPreferences= getSharedPreferences("shared preferences",MODE_PRIVATE);
-        Gson gson=new Gson();
-        String json=mPreferences.getString("key",null);
-        Type type=new TypeToken<ArrayList<String>>(){}.getType();
-        recentword1=gson.fromJson(json,type);
-        if(recentword1 == null){
-            recentword1=new ArrayList<String>();
+        int start = mPreferences.getInt("start",0);
+        //Log.i("start",start+"");
+        for(int i=start,cnt=0;;cnt++) {
+            String key = "key" + i;
+            String word = mPreferences.getString(key, null);
+            if (word != null)
+                recentword1.add(word);
+            i--;
+            if(i==-1)
+                i=9;
+            if(i==start)
+                break;
         }
+        /*for(int i=4;i>=0;i--) {
+            String key="key"+i;
+            String word = mPreferences.getString(key, null);
+            if(word!=null)
+                recentword1.add(word);
+        }*/
         getRecent();
     }
 
