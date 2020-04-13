@@ -3,8 +3,12 @@ package com.example.dictionary;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +16,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -34,6 +41,10 @@ public class DisplayActivity extends AppCompatActivity {
     TextView wordPOP;
     TextView wordName;
     ListView wordMeaningList;
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor meditor;
+    private Gson gson;
+    private ArrayList<String> shared;
     ArrayAdapter<String> wordArrayAdapter;
     String word;
     List<String> fav_list = new ArrayList<>();
@@ -43,6 +54,9 @@ public class DisplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display);
         Bundle bundle = getIntent().getExtras();
         word = bundle.getString("key");
+        //shared preferences list
+        shared=new ArrayList<String>();
+        //shared.add(word);
         //wordMeaning = findViewById(R.id.WordMeaning);
         wordName = findViewById(R.id.WordName);
         wordPOP = findViewById(R.id.WordPOP);
@@ -141,6 +155,15 @@ public class DisplayActivity extends AppCompatActivity {
         final String fields = "definitions";
         final String strictMatch = "false";
         final String word_id = word.toLowerCase();
+        //Shared Preferences
+        mPreferences= this.getSharedPreferences("shared preferences",MODE_PRIVATE);
+        meditor=mPreferences.edit();
+        gson=new Gson();
+        shared.add(word);
+        String json=gson.toJson(shared);
+        meditor.putString("key",json);
+        meditor.commit();
+
         return "https://od-api.oxforddictionaries.com:443/api/v2/entries/" + language + "/" + word_id + "?" + "fields=" + fields + "&strictMatch=" + strictMatch;
     }
 }
