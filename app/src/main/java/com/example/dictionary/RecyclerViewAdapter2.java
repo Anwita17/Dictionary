@@ -15,42 +15,35 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapter2.ViewHolder>{
     public static final String TAG="RecyclerViewAdapter";
-    private ArrayList<String> word=new ArrayList<>();
-    private ArrayList<String> meaning=new ArrayList<>();
+    private ArrayList<String> favword=new ArrayList<>();
     private Context context;
 
-    public RecyclerViewAdapter(ArrayList<String> word, ArrayList<String> meaning, Context context) {
-        this.word = word;
-        this.meaning = meaning;
+    public RecyclerViewAdapter2(ArrayList<String> favword, Context context) {
+        this.favword = favword;
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         Log.d(TAG,"onCreateViewHolder: called");
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_itemlist,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_word_list,parent,false);
 
         return new ViewHolder(view);
     }
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position){
-        holder.cardtitle.setText(word.get(position));
-        holder.cardcontent.setText(meaning.get(position));
-        holder.cardcontent.setOnClickListener(new View.OnClickListener() {
+        holder.favwordlist.setText(favword.get(position));
+        holder.favwordlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  Toast.makeText(context, "Clicked" + word.get(position), Toast.LENGTH_SHORT).show();
-                /*Intent i1=new Intent(card,DisplayMeaning.class);
-                i1.putExtra("word",word.get(position));
-                i1.putExtra("meaning",meaning.get(position));
-                card.startActivity(i1);*/
                 Intent intent = new Intent(context,DisplayActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("key", word.get(position));
+                bundle.putString("key", favword.get(position));
                 intent.putExtras(bundle);
                 context.startActivity(intent);
+
             }
         });
 
@@ -58,18 +51,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
     @Override
     public int getItemCount(){
-        return word.size();
+        return favword.size();
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView cardtitle;
-        TextView cardcontent;
+        TextView favwordlist;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardtitle = itemView.findViewById(R.id.cardtitle);
-            cardcontent= itemView.findViewById(R.id.cardcontent);
+            favwordlist = itemView.findViewById(R.id.favwordlist);
         }
     }
 }

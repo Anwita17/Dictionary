@@ -11,16 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DisplayActivity">
-        </activity>
-        <activity android:name=".SearchActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity android:name=".Recents"></activity>
+        <activity android:name=".Favourite" />
+        <activity android:name=".DisplayActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme.ActionBar.Transparent">
+
+            <!-- <activity -->
+            <!-- android:name=".MainActivity" -->
+            <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
