@@ -3,4 +3,5 @@
     <string name="parts_of_speech">parts of speech</string>
     <string name="word">Word</string>
     <string name="recent"></string>
+    <string name="boggle_solver">Boggle Solver</string>
 </resources>

@@ -14,8 +14,21 @@ class TrieNode{
 public class Trie {
 
     private TrieNode root;
+    private String TAG="TEST";
+    Map<String, boolean[][]> mBoggleSolver ;
+
+    // Alphabet size
+    private final int SIZE = 26;
+    private final int M = 4;
+    private final int N = 4;
+
     public Trie(){
         root=new TrieNode();
+        mBoggleSolver= new HashMap<String, boolean[][]>();
+    }
+
+    public Map<String,boolean[][]> getBoggleSolve(){
+        return mBoggleSolver;
     }
     public void insert(String word){
         TrieNode p=root;
@@ -155,5 +168,107 @@ public class Trie {
             }
         }
         return result;
+    }
+    private boolean isSafe(int i, int j, boolean visited[][])
+    {
+        return (i >= 0 && i < M && j >= 0
+                && j < N && !visited[i][j]);
+    }
+    private void searchWord(TrieNode root, char boggle[][], int i,
+                           int j, boolean visited[][], String str) {
+        // if we found word in trie / dictionary
+        if (root.isLeaf) {
+            Log.d("mWords", str);
+            Log.d("mWords",visited.length+","+visited[0].length);
+            mBoggleSolver.put(str,visited);
+        }
+
+        // If both I and j in  range and we visited
+        // that element of matrix first time
+        if (isSafe(i, j, visited)) {
+            // make it visited
+            visited[i][j] = true;
+
+            // traverse all child of current root
+            for (int K = 0; K < SIZE; K++) {
+                if (root.children[K] != null) {
+                    // current character
+                    char ch = (char) (K + 'a');
+
+                    // Recursively search reaming character of word
+                    // in trie for all 8 adjacent cells of
+                    // boggle[i][j]
+                    if (isSafe(i + 1, j + 1, visited)
+                            && boggle[i + 1][j + 1] == ch)
+                        searchWord(root.children[K], boggle,
+                                i + 1, j + 1,
+                                visited, str + ch);
+                    if (isSafe(i, j + 1, visited)
+                            && boggle[i][j + 1] == ch)
+                        searchWord(root.children[K], boggle,
+                                i, j + 1,
+                                visited, str + ch);
+                    if (isSafe(i - 1, j + 1, visited)
+                            && boggle[i - 1][j + 1] == ch)
+                        searchWord(root.children[K], boggle,
+                                i - 1, j + 1,
+                                visited, str + ch);
+                    if (isSafe(i + 1, j, visited)
+                            && boggle[i + 1][j] == ch)
+                        searchWord(root.children[K], boggle,
+                                i + 1, j,
+                                visited, str + ch);
+                    if (isSafe(i + 1, j - 1, visited)
+                            && boggle[i + 1][j - 1] == ch)
+                        searchWord(root.children[K], boggle,
+                                i + 1, j - 1,
+                                visited, str + ch);
+                    if (isSafe(i, j - 1, visited)
+                            && boggle[i][j - 1] == ch)
+                        searchWord(root.children[K], boggle,
+                                i, j - 1,
+                                visited, str + ch);
+                    if (isSafe(i - 1, j - 1, visited)
+                            && boggle[i - 1][j - 1] == ch)
+                        searchWord(root.children[K], boggle,
+                                i - 1, j - 1,
+                                visited, str + ch);
+                    if (isSafe(i - 1, j, visited)
+                            && boggle[i - 1][j] == ch)
+                        searchWord(root.children[K], boggle,
+                                i - 1, j,
+                                visited, str + ch);
+                }
+            }
+
+            // make current element unvisited
+            visited[i][j] = false;
+        }
+        }
+    public void findWords(char boggle[][])
+    {
+        // Mark all characters as not visited
+        boolean[][] visited = new boolean[M][N];
+        TrieNode pChild = root;
+
+        String str = "";
+
+        for(int i=0;i<M;i++)
+            for(int j=0;j<N;j++)
+                visited[i][j]=false;
+        // traverse all matrix elements
+        for (int i = 0; i < M; i++) {
+            for (int j = 0; j < N; j++) {
+                // we start searching for word in dictionary
+                // if we found a character which is child
+                // of Trie root
+                if (pChild.children[(boggle[i][j]) - 'a'] != null) {
+                    str = str + boggle[i][j];
+                    searchWord(pChild.children[(boggle[i][j]) - 'a'],
+                            boggle, i, j, visited, str);
+                    str = "";
+                }
+            }
+        }
     }
 }
